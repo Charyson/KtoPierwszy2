@@ -1,0 +1,66 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="KtoPierwszy2.MainPage">
+
+    <StackLayout>
+        <!-- Place new controls here -->
+        <!--
+        <ListView x:Name="MyListView" ItemSelected="MyListView_ItemSelected" ItemsSource="{Binding Answers}">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <Grid>
+                            <BoxView Color="Fuchsia" IsVisible="{Binding IsSelected}" />
+                            <Label Text="{Binding DisplayName}" VerticalOptions="Start" HorizontalOptions="Start"/>
+                        </Grid>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+        -->
+        <ListView x:Name="MyAnswers" 
+                  ItemSelected="MyAnswers_ItemSelected"
+                  HorizontalOptions="Center"
+                  RowHeight="100">
+            <!--
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell Height="40">
+                        <Label Margin="15,0,0,0" 
+        FontSize="20" TextColor="#336699" Text="SOME_DATA_VALUE" 
+        LineBreakMode="TailTruncation">
+
+                        </Label>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+            -->
+            <ListView.ItemsSource>
+                <x:Array Type="{x:Type x:String}">
+                    <x:String>A</x:String>
+                    <x:String>B</x:String>
+                    <x:String>C</x:String>
+                    <x:String>D</x:String>
+                </x:Array>
+            </ListView.ItemsSource>
+        </ListView>
+        <Label x:Name="Time" Text=""
+               FontAttributes="Bold"
+               FontSize="Large"
+               HorizontalOptions="Center"
+               VerticalOptions="Center" />
+        <Label Text="{Binding SelectedAnswers}"
+               FontAttributes="Bold"
+               FontSize="Large"
+               HorizontalOptions="Center"
+               VerticalOptions="Center" />
+        <Button x:Name="CancelButton" Text="Anuluj" Clicked="CancelButton_Clicked" />
+        <Button x:Name="AcceptButton" Text="Zatwierdz" Clicked="Button_Clicked" IsEnabled="False" />
+        <Button x:Name="RestartButton" Text="Restart" Clicked="RestartButton_Clicked" />
+    </StackLayout>
+
+</ContentPage>
