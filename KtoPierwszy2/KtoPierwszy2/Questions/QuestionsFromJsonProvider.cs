@@ -11,7 +11,8 @@ namespace KtoPierwszy2.Questions
   class QuestionsFromJsonProvider : IQuestionProvider
   {
     private bool m_isInitialized = false;
-    private List<Question> m_questions;
+    private static Random random = new Random();
+    private Question[] m_questions;
 
     public Question GetNextQuestion()
     {
@@ -20,7 +21,7 @@ namespace KtoPierwszy2.Questions
         Initialize();
       }
 
-      return m_questions.First();
+      return GetRandomQuestion();
     }
 
     private void Initialize()
@@ -28,17 +29,25 @@ namespace KtoPierwszy2.Questions
       if (!m_isInitialized)
       {
         var rawQuestions = LoadQuestionsFromFile();
-        m_questions = new List<Question>();
+        var questionsList = new List<Question>();
         foreach (var questionDto in rawQuestions)
         {
-          m_questions.Add(new Question(questionDto.Question, new Answers(questionDto.AnswersInCorrectOrder.First,
+          questionsList.Add(new Question(questionDto.Question, new Answers(questionDto.AnswersInCorrectOrder.First,
             questionDto.AnswersInCorrectOrder.Second,
             questionDto.AnswersInCorrectOrder.Third,
             questionDto.AnswersInCorrectOrder.Fourth)));
         }
 
+        m_questions = questionsList.ToArray();
+
         m_isInitialized = true;
       }
+    }
+
+    private Question GetRandomQuestion()
+    {
+      var randomIndex = random.Next(0, m_questions.Length);
+      return m_questions[randomIndex];
     }
 
     private List<QuestionDto> LoadQuestionsFromFile()
