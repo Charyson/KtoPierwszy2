@@ -1,0 +1,38 @@
+[
+  {
+    "Question": "Dopasuj autorów do ich dzie³ w kolejnoœci: \"Tango\", \"Granica\", \"Ferdydurke\", \"Wesele\"",
+    "AnswersInCorrectOrder": {
+      "First": "S³awomir Mro¿ek",
+      "Second": "Zofia Na³kowska",
+      "Third": "Stanis³aw Wyspiañski",
+      "Fourth": "Witold Gombrowicz"
+    }
+  },
+  {
+    "Question": "Dopasuj greckich bogów do ich atrybutów w porz¹dku: piorun, trójz¹b, kaduceusz, ³uk.",
+    "AnswersInCorrectOrder": {
+      "First": "Zeus ",
+      "Second": "Posejdon ",
+      "Third": "Hermes ",
+      "Fourth": "Artemida "
+    }
+  },
+  {
+    "Question": "Uszereguj sportowców w kolejnoœci: wykonuje wsady, skacze salchowy, zalicza przy³o¿enia, koñczy smeczem.",
+    "AnswersInCorrectOrder": {
+      "First": "koszykarz ",
+      "Second": "³y¿wiarz ",
+      "Third": "rugbista ",
+      "Fourth": "tenisista "
+    }
+  },
+  {
+    "Question": "Z³ó¿ maszynkê do mielenia miêsa, zachowuj¹c prawid³ow¹ kolejnoœæ umieszczania jej elementów w komorze mielenia.",
+    "AnswersInCorrectOrder": {
+      "First": "œlimak ",
+      "Second": "no¿yk ",
+      "Third": "sitko ",
+      "Fourth": "nakrêtka "
+    }
+  }
+]

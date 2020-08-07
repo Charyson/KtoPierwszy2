@@ -10,7 +10,6 @@ namespace KtoPierwszy2
 {
     public class MainPageModel : INotifyPropertyChanged
     {
-        //public String SelectedAnswers { get; set; } = "Dupa";
         private string selectedAnswers;
 
         public event PropertyChangedEventHandler PropertyChanged;

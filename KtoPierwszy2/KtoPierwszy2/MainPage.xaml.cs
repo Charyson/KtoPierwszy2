@@ -1,4 +1,5 @@
-﻿using System;
+﻿using KtoPierwszy2.Questions;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -9,8 +10,6 @@ using Xamarin.Forms;
 
 namespace KtoPierwszy2
 {
-    // Learn more about making custom code visible in the Xamarin.Forms previewer
-    // by visiting https://aka.ms/xamarinforms-previewer
     [DesignTimeVisible(false)]
     public partial class MainPage : ContentPage
     {
@@ -21,10 +20,6 @@ namespace KtoPierwszy2
             InitializeComponent();
             m_model = new MainPageModel();
             this.BindingContext = m_model;
-            //this.MyAnswers.ItemsSource = new string[]
-            //{
-            //    "A", "B", "C", "D"
-            //};
         }
 
         void Button_Clicked(object sender, System.EventArgs e)
