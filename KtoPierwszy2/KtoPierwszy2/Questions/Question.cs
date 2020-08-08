@@ -7,7 +7,7 @@ namespace KtoPierwszy2.Questions
     public string Body { get; }
     private Answers m_answersInCorrectOrder;
 
-    public Question (string question, Answers answersInCorrectOrder)
+    public Question(string question, Answers answersInCorrectOrder)
     {
       Body = question;
       m_answersInCorrectOrder = answersInCorrectOrder;

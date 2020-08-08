@@ -1,4 +1,6 @@
-﻿using KtoPierwszy2.Questions;
+﻿using KtoPierwszy2.DI;
+using KtoPierwszy2.Questions;
+using Ninject;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -10,61 +12,64 @@ using Xamarin.Forms;
 
 namespace KtoPierwszy2
 {
-    [DesignTimeVisible(false)]
-    public partial class MainPage : ContentPage
+  [DesignTimeVisible(false)]
+  public partial class MainPage : ContentPage
+  {
+    private MainPageModel m_model;
+    private readonly StandardKernel m_kernel;
+
+    public MainPage()
     {
-        private MainPageModel m_model;
+      InitializeComponent();
+      m_kernel = new StandardKernel(new AppModule());
+      m_model = new MainPageModel(m_kernel.Get<IQuestionProvider>());
+      m_model.GetNextQuestion();
+      this.BindingContext = m_model;
+    }
 
-        public MainPage()
+    void Button_Clicked(object sender, System.EventArgs e)
+    {
+        MyAnswers.SelectedItem = null;
+        m_model.StopTimer();
+        Time.Text = "Czas: " + m_model.GetElapsedTime().ToString(@"ss\.fff") + " s";
+        m_model.ResetTimer();
+        this.AcceptButton.IsEnabled = false;
+    }
+
+    public void CancelButton_Clicked(object sender, System.EventArgs e)
+    {
+        m_model.Answers.Clear();
+        MyAnswers.SelectedItem = null;
+        m_model.SelectedAnswers = "Brak odpowiedzi";
+        this.AcceptButton.IsEnabled = false;
+    }
+
+    public void RestartButton_Clicked(object sender, System.EventArgs e)
+    {
+        m_model.Answers.Clear();
+        MyAnswers.SelectedItem = null;
+        m_model.SelectedAnswers = "Brak odpowiedzi";
+        Time.Text = string.Empty;
+        m_model.ResetTimer();
+        this.AcceptButton.IsEnabled = false;
+    }
+
+    private void MyAnswers_ItemSelected(object sender, SelectedItemChangedEventArgs e)
+    {
+        var selectedAnswer = e.SelectedItem as String;
+        if (!m_model.IsTimerRunnning())
         {
-            InitializeComponent();
-            m_model = new MainPageModel();
-            this.BindingContext = m_model;
+            m_model.StartTimer();
         }
-
-        void Button_Clicked(object sender, System.EventArgs e)
+        if (!m_model.Answers.Contains(selectedAnswer))
         {
-            MyAnswers.SelectedItem = null;
-            m_model.StopTimer();
-            Time.Text = "Czas: " + m_model.GetElapsedTime().ToString(@"ss\.fff") + " s";
-            m_model.ResetTimer();
-            this.AcceptButton.IsEnabled = false;
+            m_model.Answers.Add(selectedAnswer);
         }
-
-        public void CancelButton_Clicked(object sender, System.EventArgs e)
+        m_model.SelectedAnswers = "Wybrane odpowiedzi: " + string.Join(" ", m_model.Answers);
+        if (m_model.Answers.Count == 4)
         {
-            m_model.Answers.Clear();
-            MyAnswers.SelectedItem = null;
-            m_model.SelectedAnswers = "Brak odpowiedzi";
-            this.AcceptButton.IsEnabled = false;
-        }
-
-        public void RestartButton_Clicked(object sender, System.EventArgs e)
-        {
-            m_model.Answers.Clear();
-            MyAnswers.SelectedItem = null;
-            m_model.SelectedAnswers = "Brak odpowiedzi";
-            Time.Text = string.Empty;
-            m_model.ResetTimer();
-            this.AcceptButton.IsEnabled = false;
-        }
-
-        private void MyAnswers_ItemSelected(object sender, SelectedItemChangedEventArgs e)
-        {
-            var selectedAnswer = e.SelectedItem as String;
-            if (!m_model.IsTimerRunnning())
-            {
-                m_model.StartTimer();
-            }
-            if (!m_model.Answers.Contains(selectedAnswer))
-            {
-                m_model.Answers.Add(selectedAnswer);
-            }
-            m_model.SelectedAnswers = "Wybrane odpowiedzi: " + string.Join(" ", m_model.Answers);
-            if (m_model.Answers.Count == 4)
-            {
-                this.AcceptButton.IsEnabled = true;
-            }
+            this.AcceptButton.IsEnabled = true;
         }
     }
+  }
 }
