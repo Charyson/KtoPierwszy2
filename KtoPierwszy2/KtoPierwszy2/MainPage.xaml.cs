@@ -27,13 +27,18 @@ namespace KtoPierwszy2
       this.BindingContext = m_model;
     }
 
-    void AcceptButton_Clicked(object sender, System.EventArgs e)
+    async void AcceptButton_Clicked(object sender, System.EventArgs e)
     {
-        MyAnswers.SelectedItem = null;
-        m_model.StopTimer();
-        Time.Text = "Czas: " + m_model.GetElapsedTime().ToString(@"ss\.fff") + " s";
-        m_model.ResetTimer();
-        this.AcceptButton.IsEnabled = false;
+      MyAnswers.SelectedItem = null;
+      m_model.StopTimer();
+      Time.Text = "Czas: " + GetElapsedTimeString();
+      this.AcceptButton.IsEnabled = false;
+      await CheckAnswersAsync();
+    }
+
+    private string GetElapsedTimeString()
+    {
+      return m_model.GetElapsedTime().ToString(@"ss\.fff") + " s";
     }
 
     public void CancelButton_Clicked(object sender, System.EventArgs e)
@@ -55,10 +60,27 @@ namespace KtoPierwszy2
       m_model.GetNextQuestion();
     }
 
+    private async Task CheckAnswersAsync()
+    {
+      if (m_model.AreAnswersCorrect(Answers.CreateFromList(m_model.Answers.ToList())))
+      {
+        await DisplaySummaryPrompt("Dobrze!", "Oby tak dalej");
+      }
+      else
+      {
+        await DisplaySummaryPrompt("Niestety źle...", $"Poprawna kolejność to: {Environment.NewLine}{m_model.GetCorrectAnswers()}");
+      }
+    }
+
+    private async Task DisplaySummaryPrompt(string title, string body)
+    {
+      await DisplayAlert(title, body + Environment.NewLine + $"Czas: {GetElapsedTimeString()}", "OK");
+    }
+
     private void MyAnswers_ItemSelected(object sender, SelectedItemChangedEventArgs e)
     {
         var selectedAnswer = e.SelectedItem as String;
-        if (!m_model.Answers.Contains(selectedAnswer))
+        if (!string.IsNullOrWhiteSpace(selectedAnswer) && !m_model.Answers.Contains(selectedAnswer))
         {
             m_model.Answers.Add(selectedAnswer);
         }

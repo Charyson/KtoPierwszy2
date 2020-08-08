@@ -30,7 +30,5 @@ namespace KtoPierwszy2.Questions
     {
       return m_answersInCorrectOrder.GetAnswers().SequenceEqual(proposedAnswers.GetAnswers());
     }
-
-    
   }
 }

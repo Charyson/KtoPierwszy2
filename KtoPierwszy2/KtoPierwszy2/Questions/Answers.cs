@@ -46,5 +46,10 @@ namespace KtoPierwszy2.Questions
     {
       return ((IEnumerable)m_answers).GetEnumerator();
     }
+
+    public override string ToString()
+    {
+      return string.Join(Environment.NewLine, m_answers);
+    }
   }
 }

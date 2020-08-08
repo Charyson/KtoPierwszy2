@@ -15,6 +15,7 @@ namespace KtoPierwszy2
     private string selectedAnswers;
     private IQuestionProvider m_questionProvider;
     private Stopwatch Timer = new Stopwatch();
+    private Question m_currentQuestion;
     public event PropertyChangedEventHandler PropertyChanged;
 
     public MainPageModel(IQuestionProvider questionProvider)
@@ -34,8 +35,8 @@ namespace KtoPierwszy2
 
     public void GetNextQuestion()
     {
-      var question = m_questionProvider.GetNextQuestion();
-      Question = question.Body;
+      m_currentQuestion = m_questionProvider.GetNextQuestion();
+      Question = m_currentQuestion.Body;
       TextAnswers = new List<string>() { string.Empty, string.Empty, string.Empty, string.Empty };
 
       OnPropertyChanged(nameof(Question));
@@ -43,7 +44,7 @@ namespace KtoPierwszy2
 
       Task.Run(() => {
         System.Threading.Thread.Sleep(5000);
-        TextAnswers = question.GetAnswersInRandomOrder().GetAnswers();
+        TextAnswers = m_currentQuestion.GetAnswersInRandomOrder().GetAnswers();
         StartTimer();
         OnPropertyChanged(nameof(TextAnswers));
       });
@@ -54,6 +55,16 @@ namespace KtoPierwszy2
 
     ObservableCollection<string> answers = new ObservableCollection<string>();
     public ObservableCollection<string> Answers { get { return answers; } }
+
+    public bool AreAnswersCorrect(Answers selectedAnswers)
+    {
+      return m_currentQuestion.AreAnswersCorrect(selectedAnswers);
+    }
+
+    public Answers GetCorrectAnswers()
+    {
+      return m_currentQuestion.GetAnswersInCorrectOrder();
+    }
 
     public void StartTimer()
     {
