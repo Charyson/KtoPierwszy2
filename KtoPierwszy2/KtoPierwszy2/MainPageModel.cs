@@ -5,6 +5,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Text;
+using System.Threading.Tasks;
 using System.Timers;
 
 namespace KtoPierwszy2
@@ -35,10 +36,17 @@ namespace KtoPierwszy2
     {
       var question = m_questionProvider.GetNextQuestion();
       Question = question.Body;
-      TextAnswers = question.GetAnswersInRandomOrder().GetAnswers();
+      TextAnswers = new List<string>() { string.Empty, string.Empty, string.Empty, string.Empty };
 
       OnPropertyChanged(nameof(Question));
       OnPropertyChanged(nameof(TextAnswers));
+
+      Task.Run(() => {
+        System.Threading.Thread.Sleep(5000);
+        TextAnswers = question.GetAnswersInRandomOrder().GetAnswers();
+        StartTimer();
+        OnPropertyChanged(nameof(TextAnswers));
+      });
     }
 
     public List<string> TextAnswers { get; set; }

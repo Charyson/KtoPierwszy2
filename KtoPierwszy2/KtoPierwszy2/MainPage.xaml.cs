@@ -46,22 +46,18 @@ namespace KtoPierwszy2
 
     public void RestartButton_Clicked(object sender, System.EventArgs e)
     {
-        m_model.Answers.Clear();
-        MyAnswers.SelectedItem = null;
-        m_model.SelectedAnswers = "Brak odpowiedzi";
-        Time.Text = string.Empty;
-        m_model.ResetTimer();
-        this.AcceptButton.IsEnabled = false;
+      m_model.Answers.Clear();
+      MyAnswers.SelectedItem = null;
+      m_model.SelectedAnswers = "Brak odpowiedzi";
+      Time.Text = string.Empty;
+      m_model.ResetTimer();
+      this.AcceptButton.IsEnabled = false;
       m_model.GetNextQuestion();
     }
 
     private void MyAnswers_ItemSelected(object sender, SelectedItemChangedEventArgs e)
     {
         var selectedAnswer = e.SelectedItem as String;
-        if (!m_model.IsTimerRunnning())
-        {
-            m_model.StartTimer();
-        }
         if (!m_model.Answers.Contains(selectedAnswer))
         {
             m_model.Answers.Add(selectedAnswer);
