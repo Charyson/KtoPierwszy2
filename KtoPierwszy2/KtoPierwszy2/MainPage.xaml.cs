@@ -27,7 +27,7 @@ namespace KtoPierwszy2
       this.BindingContext = m_model;
     }
 
-    void Button_Clicked(object sender, System.EventArgs e)
+    void AcceptButton_Clicked(object sender, System.EventArgs e)
     {
         MyAnswers.SelectedItem = null;
         m_model.StopTimer();
@@ -52,6 +52,7 @@ namespace KtoPierwszy2
         Time.Text = string.Empty;
         m_model.ResetTimer();
         this.AcceptButton.IsEnabled = false;
+      m_model.GetNextQuestion();
     }
 
     private void MyAnswers_ItemSelected(object sender, SelectedItemChangedEventArgs e)

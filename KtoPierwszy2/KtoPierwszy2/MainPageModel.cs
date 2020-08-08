@@ -35,23 +35,13 @@ namespace KtoPierwszy2
     {
       var question = m_questionProvider.GetNextQuestion();
       Question = question.Body;
-      var answers = question.GetAnswersInRandomOrder().GetAnswers();
-      AnswerA = answers[0];
-      AnswerB = answers[1];
-      AnswerC = answers[2];
-      AnswerD = answers[3];
+      TextAnswers = question.GetAnswersInRandomOrder().GetAnswers();
 
       OnPropertyChanged(nameof(Question));
-      OnPropertyChanged(nameof(AnswerA));
-      OnPropertyChanged(nameof(AnswerB));
-      OnPropertyChanged(nameof(AnswerC));
-      OnPropertyChanged(nameof(AnswerD));
+      OnPropertyChanged(nameof(TextAnswers));
     }
 
-    public string AnswerA { get; set; }
-    public string AnswerB { get; set; }
-    public string AnswerC { get; set; }
-    public string AnswerD { get; set; }
+    public List<string> TextAnswers { get; set; }
     public string Question { get; set; }
 
     ObservableCollection<string> answers = new ObservableCollection<string>();
