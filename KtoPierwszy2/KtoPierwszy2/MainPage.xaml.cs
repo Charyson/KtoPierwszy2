@@ -1,6 +1,7 @@
 ﻿using KtoPierwszy2.DI;
 using KtoPierwszy2.Questions;
 using Ninject;
+using Ninject.Modules;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -18,10 +19,10 @@ namespace KtoPierwszy2
     private MainPageModel m_model;
     private readonly StandardKernel m_kernel;
 
-    public MainPage()
+    public MainPage(NinjectModule androidDependenciesModule)
     {
       InitializeComponent();
-      m_kernel = new StandardKernel(new AppModule());
+      m_kernel = new StandardKernel(new AppModule(), androidDependenciesModule);
       m_model = new MainPageModel(m_kernel.Get<IQuestionProvider>());
       m_model.GetNextQuestion();
       this.BindingContext = m_model;

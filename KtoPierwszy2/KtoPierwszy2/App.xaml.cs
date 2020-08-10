@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Ninject.Modules;
+using System;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -6,11 +7,11 @@ namespace KtoPierwszy2
 {
     public partial class App : Application
     {
-        public App()
+        public App(NinjectModule androidDependenciesModule)
         {
             InitializeComponent();
 
-            MainPage = new MainPage();
+            MainPage = new MainPage(androidDependenciesModule);
         }
 
         protected override void OnStart()

@@ -13,6 +13,12 @@ namespace KtoPierwszy2.Questions
     private bool m_isInitialized = false;
     private static Random random = new Random();
     private Question[] m_questions;
+    IJsonQuestionFileProvider m_questionFileProvider;
+
+    public QuestionsFromJsonProvider(IJsonQuestionFileProvider questionFileProvider)
+    {
+      m_questionFileProvider = questionFileProvider;
+    }
 
     public Question GetNextQuestion()
     {
@@ -52,15 +58,7 @@ namespace KtoPierwszy2.Questions
 
     private List<QuestionDto> LoadQuestionsFromFile()
     {
-      var assembly = Assembly.GetExecutingAssembly();
-      Stream stream = assembly.GetManifestResourceStream("KtoPierwszy2.Questions.json");
-
-      string text;
-      using (var reader = new System.IO.StreamReader(stream, Encoding.GetEncoding("Windows-1250")))
-      {
-        text = reader.ReadToEnd();
-      }
-
+      var text = m_questionFileProvider.GetJsonAsString();
       return JsonConvert.DeserializeObject<List<QuestionDto>>(text);
     }
   }
