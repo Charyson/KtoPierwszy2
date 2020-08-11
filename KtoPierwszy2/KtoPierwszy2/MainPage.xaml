@@ -6,7 +6,7 @@
              mc:Ignorable="d"
              x:Class="KtoPierwszy2.MainPage">
 
-    <StackLayout>
+  <StackLayout Padding="5, 10, 5, 10">
     <Label Text="{Binding Question}" FontSize = "17" Margin="20, 10, 20, 10" />
     <ListView x:Name="MyAnswers" 
                   ItemSelected="MyAnswers_ItemSelected"
@@ -36,18 +36,21 @@
             </ListView.ItemsSource>-->
         </ListView>
         <Label x:Name="Time" Text=""
-               FontAttributes="Bold"
-               FontSize="Large"
-               HorizontalOptions="Center"
-               VerticalOptions="Center" />
+                FontAttributes="Bold"
+                FontSize="Large"
+                HorizontalOptions="Center"
+                VerticalOptions="Center" />
         <Label Text="{Binding SelectedAnswers}"
-               FontAttributes="Bold"
-               FontSize="Large"
-               HorizontalOptions="Center"
-               VerticalOptions="Center" />
-        <Button x:Name="CancelButton" Text="Anuluj" Clicked="CancelButton_Clicked" />
-        <Button x:Name="AcceptButton" Text="Zatwierdz" Clicked="AcceptButton_Clicked" IsEnabled="False" />
-        <Button x:Name="RestartButton" Text="Następne pytanie" Clicked="RestartButton_Clicked" />
+                FontAttributes="Bold"
+                FontSize="Large"
+                HorizontalOptions="Center"
+                VerticalOptions="Center" />
+    <StackLayout Orientation="Horizontal" HorizontalOptions="Center" Padding="10, 0, 10, 0">
+      <Button x:Name="CancelButton" Text="Anuluj" Clicked="CancelButton_Clicked" />
+      <Button x:Name="AcceptButton" Text="Zatwierdz" Clicked="AcceptButton_Clicked" IsEnabled="False" />
     </StackLayout>
+    <Button x:Name="RestartButton" Text="Następne pytanie" Clicked="RestartButton_Clicked" 
+            HorizontalOptions="Center" Padding="10, 0, 10, 0" IsEnabled="False"/>
+  </StackLayout>
 
 </ContentPage>

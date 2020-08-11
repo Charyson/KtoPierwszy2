@@ -34,6 +34,8 @@ namespace KtoPierwszy2
       m_model.StopTimer();
       Time.Text = "Czas: " + GetElapsedTimeString();
       this.AcceptButton.IsEnabled = false;
+      this.CancelButton.IsEnabled = false;
+      this.RestartButton.IsEnabled = true;
       await CheckAnswersAsync();
     }
 
@@ -54,10 +56,12 @@ namespace KtoPierwszy2
     {
       m_model.Answers.Clear();
       MyAnswers.SelectedItem = null;
-      m_model.SelectedAnswers = "Brak odpowiedzi";
+      m_model.SelectedAnswers = string.Empty;
       Time.Text = string.Empty;
       m_model.ResetTimer();
       this.AcceptButton.IsEnabled = false;
+      this.CancelButton.IsEnabled = true;
+      this.RestartButton.IsEnabled = false;
       m_model.GetNextQuestion();
     }
 
@@ -85,7 +89,7 @@ namespace KtoPierwszy2
         {
             m_model.Answers.Add(selectedAnswer);
         }
-        m_model.SelectedAnswers = "Wybrane odpowiedzi: " + string.Join(" ", m_model.Answers);
+        m_model.SelectedAnswers = "Wybrane odpowiedzi: " + string.Join("; ", m_model.Answers);
         if (m_model.Answers.Count == 4)
         {
             this.AcceptButton.IsEnabled = true;
